@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
-
 export const Wrapper = styled.menu`
   ${({ theme }) => css`
     display: flex;
@@ -9,7 +8,6 @@ export const Wrapper = styled.menu`
     position: relative;
   `}
 `
-
 export const LogoWrapper = styled.div`
   ${media.lessThan('medium')`
     position: absolute;
@@ -17,7 +15,6 @@ export const LogoWrapper = styled.div`
     transform: translateX(-50%);
   `}
 `
-
 export const IconWrapper = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.white};
@@ -26,7 +23,6 @@ export const IconWrapper = styled.div`
     height: 2.4rem;
   `}
 `
-
 export const MenuGroup = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -35,5 +31,15 @@ export const MenuGroup = styled.div`
     > div {
       margin-left: ${theme.spacings.xsmall};
     }
+  `}
+`
+
+type MenuFullProps = {
+  isOpen: boolean
+}
+
+export const MenuFull = styled.nav<MenuFullProps>`
+  ${({ isOpen }) => css`
+    opacity: ${isOpen ? 1 : 0};
   `}
 `
