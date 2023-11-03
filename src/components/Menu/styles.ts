@@ -33,9 +33,7 @@ export const MenuGroup = styled.div`
     }
   `}
 `
-
 export const MenuNav = styled.div``
-
 export const MenuLink = styled.a`
   ${({ theme }) => css`
     position: relative;
@@ -65,11 +63,9 @@ export const MenuLink = styled.a`
     }
   `}
 `
-
 type MenuFullProps = {
   isOpen: boolean
 }
-
 export const MenuFull = styled.nav<MenuFullProps>`
   ${({ theme, isOpen }) => css`
     display: flex;
@@ -83,10 +79,9 @@ export const MenuFull = styled.nav<MenuFullProps>`
     right: 0;
     height: 100vh;
     overflow: hidden;
+    transition: opacity 0.3s ease-in-out;
     opacity: ${isOpen ? 1 : 0};
-    pointer-events: ${isOpen ? 'all' : 'none'}; /*
-   Se 'isOpen' for verdadeiro, todos os eventos do mouse são habilitados ('all').
-   Se 'isOpen' for falso, todos os eventos do mouse são desativados ('none'). */
+    pointer-events: ${isOpen ? 'all' : 'none'};
     > svg {
       position: absolute;
       top: 0;
@@ -108,10 +103,15 @@ export const MenuFull = styled.nav<MenuFullProps>`
       font-weight: ${theme.font.bold};
       font-size: ${theme.font.sizes.xlarge};
       margin-bottom: ${theme.spacings.small};
+      transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
+      transition: transform 0.3s ease-in-out;
+    }
+    ${RegisterBox} {
+      transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
+      transition: transform 0.3s ease-in-out;
     }
   `}
 `
-
 export const RegisterBox = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -125,7 +125,6 @@ export const RegisterBox = styled.div`
     }
   `}
 `
-
 export const CreateAccount = styled.a`
   ${({ theme }) => css`
     text-decoration: none;
