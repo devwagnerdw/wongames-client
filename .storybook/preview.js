@@ -13,7 +13,7 @@ export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
       <RouterContext.Provider>
-        <GlobalStyles />
+        <GlobalStyles removeBg />
         <Story />
       </RouterContext.Provider>
     </ThemeProvider>
