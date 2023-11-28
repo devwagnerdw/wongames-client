@@ -1,12 +1,16 @@
 import styled, { css } from 'styled-components'
+import media from 'styled-media-query'
 
 import * as HeadingStyles from 'components/Heading/styles'
 import * as LogoStyles from 'components/Logo/styles'
 
 export const Wrapper = styled.main`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   height: 100vh;
+  ${media.greaterThan('medium')`
+    grid-template-columns: 1fr 1fr;
+  `}
 `
 
 export const BannerBlock = styled.div`
@@ -17,6 +21,9 @@ export const BannerBlock = styled.div`
     background-position: center center;
     padding: ${theme.spacings.xxlarge} ${theme.spacings.xxlarge}
       ${theme.spacings.large};
+    ${media.lessThan('medium')`
+      display: none;
+    `}
     &:after {
       content: '';
       position: absolute;
@@ -29,7 +36,6 @@ export const BannerBlock = styled.div`
     }
   `}
 `
-
 export const BannerContent = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.white};
@@ -41,7 +47,6 @@ export const BannerContent = styled.div`
     z-index: ${theme.layers.base};
   `}
 `
-
 export const Subtitle = styled.h3`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.xxlarge};
@@ -52,7 +57,6 @@ export const Subtitle = styled.h3`
     }
   `}
 `
-
 export const Footer = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.xsmall};
@@ -60,7 +64,6 @@ export const Footer = styled.p`
     align-self: end;
   `}
 `
-
 export const Content = styled.div`
   ${({ theme }) => css`
     background: ${theme.colors.white};
@@ -69,10 +72,12 @@ export const Content = styled.div`
     justify-content: center;
   `}
 `
-
 export const ContentWrapper = styled.div`
   ${({ theme }) => css`
     width: 30rem;
+    ${media.greaterThan('medium')`
+      width: 36rem;
+    `}
     ${LogoStyles.Wrapper} {
       margin: 0 auto ${theme.spacings.xxlarge};
     }
