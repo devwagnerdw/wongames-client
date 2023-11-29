@@ -84,5 +84,10 @@ export const ContentWrapper = styled.div`
     ${HeadingStyles.Wrapper} {
       margin-bottom: ${theme.spacings.medium};
     }
+
+    a {
+      width: fit-content;
+      height: fit-content;
+    }
   `}
 `
