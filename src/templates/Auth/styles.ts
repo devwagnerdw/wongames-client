@@ -45,6 +45,12 @@ export const BannerContent = styled.div`
     height: 100%;
     position: relative;
     z-index: ${theme.layers.base};
+
+    a {
+      /* Define a largura e altura da tag <a> para se ajustarem automaticamente ao conteúdo interno. */
+      width: fit-content;
+      height: fit-content;
+    }
   `}
 `
 export const Subtitle = styled.h3`
@@ -83,11 +89,6 @@ export const ContentWrapper = styled.div`
     }
     ${HeadingStyles.Wrapper} {
       margin-bottom: ${theme.spacings.medium};
-    }
-
-    a {
-      width: fit-content;
-      height: fit-content;
     }
   `}
 `
