@@ -10,7 +10,6 @@ export async function getStaticPaths() {
     fallback: false
   }
 }
-
 export async function getStaticProps() {
   const descriptionHTML = `
     <img src="https://items.gog.com/not_a_cp/ENG_product-page-addons-2020_yellow_on_black.png"><br>
@@ -22,14 +21,11 @@ export async function getStaticProps() {
     Enter the massive open world of Night City, a place that sets new standards in terms of visuals, complexity and depth.
     <br><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-Eternal-Life.png"><br><br>
     Take the riskiest job of your life and go after a prototype implant that is the key to immortality.
-
-
     <p class="description__copyrights">
     CD PROJEKT®, Cyberpunk®, Cyberpunk 2077® are registered trademarks of CD PROJEKT S.A. © 2019
     CD PROJEKT S.A. All rights reserved. All other copyrights and trademarks are the property of their
     respective owners.
   </p>`
-
   return {
     props: {
       cover:
@@ -41,7 +37,15 @@ export async function getStaticProps() {
           'Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality'
       },
       gallery: galleryMock,
-      description: descriptionHTML
+      description: descriptionHTML,
+      details: {
+        developer: 'CD PROJEKT RED',
+        releaseDate: '2020-12-10T23:00:00',
+        platforms: ['windows'],
+        publisher: 'CD PROJEKT RED',
+        rating: 'BR18',
+        genres: ['Action', 'Role-playing']
+      }
     }
   }
 }
