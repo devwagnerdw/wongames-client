@@ -2,10 +2,10 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import { ThemeProvider } from 'styled-components'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
 
+function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
@@ -25,5 +25,4 @@ import theme from 'styles/theme'
     </ApolloProvider>
   )
 }
-
 export default App
