@@ -13,11 +13,9 @@ export default function Index(props: HomeTemplateProps) {
 // getInitialProps => gerar via ssr a cada request (vai para o client, faz hydrate do lado do client depois do 1 req)
 export async function getStaticProps() {
   const apolloClient = initializeApollo()
-
   const {
     data: { banners, newGames, upcomingGames, freeGames, sections }
   } = await apolloClient.query<QueryHome>({ query: QUERY_HOME })
-
   return {
     props: {
       revalidate: 10,
@@ -33,6 +31,7 @@ export async function getStaticProps() {
           ribbonSize: banner.ribbon.size
         })
       })),
+      newGamesTitle: sections?.newGames?.title,
       newGames: newGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -40,6 +39,7 @@ export async function getStaticProps() {
         img: `http://localhost:1337${game.cover?.url}`,
         price: game.price
       })),
+      mostPopularGamesTitle: sections?.popularGames?.title,
       mostPopularHighlight: highlightMock,
       mostPopularGames: sections!.popularGames!.games.map((game) => ({
         title: game.name,
@@ -48,6 +48,7 @@ export async function getStaticProps() {
         img: `http://localhost:1337${game.cover?.url}`,
         price: game.price
       })),
+      upcomingGamesTitle: sections?.upcomingGames?.title,
       upcomingGames: upcomingGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -56,6 +57,7 @@ export async function getStaticProps() {
         price: game.price
       })),
       upcomingHighlight: highlightMock,
+      freeGamesTitle: sections?.freeGames?.title,
       freeGames: freeGames.map((game) => ({
         title: game.name,
         slug: game.slug,
