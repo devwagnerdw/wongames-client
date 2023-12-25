@@ -11,22 +11,25 @@ export type GamesTemplateProps = {
   games?: GameCardProps[]
   filterItems: ItemProps[]
 }
+
 const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
-  const { data, loading } = useQuery<QueryGames, QueryGamesVariables>(
-    QUERY_GAMES,
-    { variables: { limit: 15 } }
-  )
+  const { data, loading, fetchMore } = useQuery<
+    QueryGames,
+    QueryGamesVariables
+  >(QUERY_GAMES, { variables: { limit: 15 } })
+
   const handleFilter = () => {
     return
   }
+
   const handleShowMore = () => {
-    return
+    fetchMore({ variables: { limit: 15, start: data?.games.length } })
   }
+
   return (
     <Base>
       <S.Main>
         <ExploreSidebar items={filterItems} onFilter={handleFilter} />
-
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -43,7 +46,6 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
                 />
               ))}
             </Grid>
-
             <S.ShowMore role="button" onClick={handleShowMore}>
               <p>Show More</p>
               <ArrowDown size={35} />
