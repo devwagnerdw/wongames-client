@@ -54,12 +54,26 @@ describe('<Games />', () => {
       await screen.findByRole('button', { name: /show more/i })
     ).toBeInTheDocument()
   })
+
+  it('should render empty when no games found', async () => {
+    renderWithTheme(
+      <MockedProvider mocks={[]} addTypename={false}>
+        <Games filterItems={filterItemsMock} />
+      </MockedProvider>
+    )
+
+    expect(
+      await screen.findByText(/We didn't find any games with this filter/i)
+    ).toBeInTheDocument()
+  })
+
   it('should render more games when show more is clicked', async () => {
     renderWithTheme(
       <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>
     )
+
     expect(await screen.findByText(/Sample Game/i)).toBeInTheDocument()
     userEvent.click(await screen.findByRole('button', { name: /show more/i }))
 
