@@ -20,6 +20,7 @@ export interface GameFragment_cover {
   export interface GameFragment {
     __typename: "Game";
     name: string;
+    id: string;
     slug: string;
     cover: GameFragment_cover | null;
     developers: GameFragment_developers[];
