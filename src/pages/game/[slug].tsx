@@ -23,23 +23,29 @@ const apolloClient = initializeApollo()
 
 export default function Index(props: GameTemplateProps) {
   const router = useRouter()
+
   // se a rota não tiver sido gerada ainda
   // você pode mostrar um loading
   // uma tela de esqueleto
   if (router.isFallback) return null
+
   return <Game {...props} />
 }
+
 // gerar em build time (/game/bla, /bame/foo ...)
 export async function getStaticPaths() {
   const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
     query: QUERY_GAMES,
     variables: { limit: 9 }
   })
+
   const paths = data.games.map(({ slug }) => ({
     params: { slug }
   }))
+
   return { paths, fallback: true }
 }
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // Get game data
   const { data } = await apolloClient.query<
@@ -47,12 +53,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     QueryGameBySlugVariables
   >({
     query: QUERY_GAME_BY_SLUG,
-    variables: { slug: `${params?.slug}` }
+    variables: { slug: `${params?.slug}` },
+    fetchPolicy: 'no-cache'
   })
+
   if (!data.games.length) {
     return { notFound: true }
   }
+
   const game = data.games[0]
+
   // get recommended games
   const { data: recommended } = await apolloClient.query<QueryRecommended>({
     query: QUERY_RECOMMENDED
@@ -66,8 +76,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   >({ query: QUERY_UPCOMING, variables: { date: TODAY } })
 
   return {
+    revalidate: 60,
     props: {
-      revalidate: 60,
       cover: `http://localhost:1337${game.cover?.src}`,
       gameInfo: {
         title: game.name,
