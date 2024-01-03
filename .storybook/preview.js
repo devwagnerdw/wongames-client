@@ -1,12 +1,9 @@
 import { ThemeProvider } from 'styled-components'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { CartContext, CartContextDefaultValues } from 'hooks/use-cart'
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
 
 export const parameters = {
-  nextRouter: {
-    Provider: RouterContext.Provider
-  },
   backgrounds: {
     default: 'won-light',
     values: [
@@ -23,12 +20,18 @@ export const parameters = {
 }
 
 export const decorators = [
-  (Story) => (
+  (Story, context) => (
     <ThemeProvider theme={theme}>
-      <RouterContext.Provider>
+      <CartContext.Provider
+        value={{
+          ...CartContextDefaultValues,
+          ...(context?.args?.cartContextValue || {}),
+          ...context.args
+        }}
+      >
         <GlobalStyles removeBg />
         <Story />
-      </RouterContext.Provider>
+      </CartContext.Provider>
     </ThemeProvider>
   )
 ]
