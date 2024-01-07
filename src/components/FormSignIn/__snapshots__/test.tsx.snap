@@ -206,9 +206,12 @@ exports[`<FormSignIn /> should render the form 1`] = `
         </a>
         <button
           class="c7 c8"
+          type="submit"
         >
           <span>
-            Sign in now
+            <span>
+              Sign in now
+            </span>
           </span>
         </button>
         <div
@@ -226,4 +229,4 @@ exports[`<FormSignIn /> should render the form 1`] = `
     </div>
   </div>
 </body>
-`;
+`

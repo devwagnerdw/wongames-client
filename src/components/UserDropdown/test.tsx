@@ -18,11 +18,12 @@ describe('<UserDropdown />', () => {
     // Use 'findByRole' to wait for the menu items to appear
     const profileLink = await screen.findByRole('link', { name: /my profile/i })
     const wishlistLink = await screen.findByRole('link', { name: /wishlist/i })
-    const signOutLink = await screen.findByRole('link', { name: /sign out/i })
 
     // Assert that the menu items are present
     expect(profileLink).toBeInTheDocument()
     expect(wishlistLink).toBeInTheDocument()
-    expect(signOutLink).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /sign out/i })
+    ).toBeInTheDocument()
   })
 })
