@@ -42,7 +42,7 @@ const FormSignIn = () => {
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
-      allbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
     })
 
     if (result?.url) {
