@@ -3,16 +3,15 @@ import { setContext } from '@apollo/client/link/context'
 import { useMemo } from 'react'
 import apolloCache from './apolloCache'
 import { Session } from 'next-auth/client'
-
 let apolloClient: ApolloClient<NormalizedCacheObject | null>
-
 function createApolloClient(session?: Session | null) {
   const httpLink = new HttpLink({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`
   })
 
-  const authLink = setContext((_, { headers }) => {
-    const authorization = session?.jwt ? `Bearer ${session?.jwt}` : ''
+  const authLink = setContext((_, { headers, session: clientSession }) => {
+    const jwt = session?.jwt || clientSession?.jwt || ''
+    const authorization = jwt ? `Bearer ${jwt}` : ''
     return { headers: { ...headers, authorization } }
   })
 
@@ -22,14 +21,12 @@ function createApolloClient(session?: Session | null) {
     cache: apolloCache
   })
 }
-
 export function initializeApollo(
   initialState = null,
   session?: Session | null
 ) {
   // serve para verificar se já existe uma instância, para não criar outra
   const apolloClientGlobal = apolloClient ?? createApolloClient(session)
-
   // se a página usar o apolloClient no lado client
   // hidratamos o estado inicial aqui
   if (initialState) {
@@ -41,7 +38,6 @@ export function initializeApollo(
   apolloClient = apolloClient ?? apolloClientGlobal
   return apolloClient
 }
-
 export function useApollo(initialState = null, session?: Session) {
   const store = useMemo(
     () => initializeApollo(initialState, session),
