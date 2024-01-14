@@ -6,7 +6,8 @@ import {
   createWishlistMock,
   updateWishlistMock,
   wishlistItems,
-  wishlistMock
+  wishlistMock,
+  removeWishlistMock
 } from './mock'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -87,6 +88,29 @@ describe('useWishlist', () => {
 
     await waitFor(() => {
       expect(result.current.items).toStrictEqual(wishlistItems)
+    })
+  })
+
+  it('should remove item from wishlist', async () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <MockedProvider mocks={[wishlistMock, removeWishlistMock]}>
+        <WishlistProvider>{children}</WishlistProvider>
+      </MockedProvider>
+    )
+
+    const { result, waitForNextUpdate } = renderHook(() => useWishlist(), {
+      wrapper
+    })
+
+    // wait for the data to load
+    await waitForNextUpdate()
+
+    act(() => {
+      result.current.removeFromWishlist('1')
+    })
+
+    await waitFor(() => {
+      expect(result.current.items).toStrictEqual([wishlistItems[1]])
     })
   })
 })
