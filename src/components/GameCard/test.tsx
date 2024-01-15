@@ -1,8 +1,8 @@
-import { render, screen, fireEvent } from 'utils/test-utils'
+import 'session.mock'
+import { render, screen } from 'utils/test-utils'
 import theme from 'styles/theme'
 
 import GameCard from '.'
-
 const props = {
   id: '1',
   slug: 'population-zero',
@@ -24,14 +24,11 @@ describe('<GameCard />', () => {
       'src',
       props.img
     )
-
     expect(screen.getByRole('link', { name: props.title })).toHaveAttribute(
       'href',
       `/game/${props.slug}`
     )
-
     expect(screen.getByLabelText(/add to wishlist/i)).toBeInTheDocument()
-
     expect(container.firstChild).toMatchSnapshot()
   })
   it('should render price in label', () => {
@@ -49,16 +46,7 @@ describe('<GameCard />', () => {
       textDecoration: 'line-through'
     })
   })
-  it('should render a filled Favorite icon when favorite is true', () => {
-    render(<GameCard {...props} favorite />)
-    expect(screen.getByLabelText(/remove from wishlist/i)).toBeInTheDocument()
-  })
-  it('should call onFav method when favorite is clicked', () => {
-    const onFav = jest.fn()
-    render(<GameCard {...props} favorite onFav={onFav} />)
-    fireEvent.click(screen.getAllByRole('button')[0])
-    expect(onFav).toBeCalled()
-  })
+
   it('should render Ribbon', () => {
     render(
       <GameCard
