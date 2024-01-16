@@ -16,13 +16,11 @@ import { FormLoading } from 'components/Form'
 type PaymentFormProps = {
   session: Session
 }
-
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
   const { push } = useRouter()
   const stripe = useStripe()
   const elements = useElements()
-
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -54,10 +52,8 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
         }
       }
     }
-
     setPaymentMode()
   }, [items, session])
-
   const handleChange = async (event: StripeCardElementChangeEvent) => {
     setDisabled(event.empty)
     setError(event.error ? event.error.message : '')
@@ -86,13 +82,11 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       push('/success')
       return
     }
-
     const payload = await stripe!.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements!.getElement(CardElement)!
       }
     })
-
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`)
       setLoading(false)
@@ -108,7 +102,6 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       push('/success')
     }
   }
-
   return (
     <S.Wrapper>
       <form onSubmit={handleSubmit}>
@@ -131,7 +124,6 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
               onChange={handleChange}
             />
           )}
-
           {error && (
             <S.Error>
               <ErrorOutline size={20} />
@@ -155,5 +147,4 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     </S.Wrapper>
   )
 }
-
 export default PaymentForm
