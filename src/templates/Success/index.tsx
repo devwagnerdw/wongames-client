@@ -1,5 +1,6 @@
 import { Done } from '@styled-icons/material-outlined/Done'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 import Base from 'templates/Base'
 
@@ -9,28 +10,32 @@ import Showcase from 'components/Showcase'
 import { HighlightProps } from 'components/Highlight'
 
 import * as S from './styles'
+import { useCart } from 'hooks/use-cart'
 
 export type SuccessTemplateProps = {
   recommendedTitle: string
   recommendedGames: GameCardProps[]
   recommendedHighlight: HighlightProps
 }
-
 const Success = ({
   recommendedTitle,
   recommendedGames,
   recommendedHighlight
 }: SuccessTemplateProps) => {
+  const { clearCart } = useCart()
+
+  useEffect(() => {
+    clearCart()
+  }, [clearCart])
+
   return (
     <Base>
       <Container>
         <S.Wrapper>
           <S.Heading>Your purchase was successful!</S.Heading>
-
           <S.CheckMark>
             <Done />
           </S.CheckMark>
-
           <S.Text>
             Wait for your payment details by email. Your game is now available
             for download inside your{' '}
@@ -41,7 +46,6 @@ const Success = ({
           </S.Text>
         </S.Wrapper>
       </Container>
-
       <Showcase
         title={recommendedTitle}
         games={recommendedGames}
@@ -50,5 +54,4 @@ const Success = ({
     </Base>
   )
 }
-
 export default Success
