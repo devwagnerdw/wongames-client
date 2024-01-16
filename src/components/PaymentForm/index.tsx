@@ -5,9 +5,11 @@ import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 import { useCart } from 'hooks/use-cart'
 import Button from 'components/Button'
 import Heading from 'components/Heading'
+
 import * as S from './styles'
 import { createPaymentIntent } from 'utils/stripe/methods'
-import { session, Session, useSession } from 'next-auth/client'
+import { Session } from 'next-auth/client'
+
 type PaymentFormProps = {
   session: Session
 }
@@ -39,6 +41,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
         } else {
           // senão o paymentIntent foi válido
           // setClientSecret
+          setFreeGames(false)
           setClientSecret(data.client_secret)
         }
       }
