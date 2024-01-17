@@ -1,18 +1,16 @@
+import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
-
 import { useCart } from 'hooks/use-cart'
 import Button from 'components/Button'
 import Heading from 'components/Heading'
-
 import * as S from './styles'
 import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
 import { Session } from 'next-auth/client'
 import { FormLoading } from 'components/Form'
-
 type PaymentFormProps = {
   session: Session
 }
@@ -58,17 +56,14 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     setDisabled(event.empty)
     setError(event.error ? event.error.message : '')
   }
-
   const saveOrder = async (paymentIntent?: PaymentIntent) => {
     const data = await createPayment({
       items,
       paymentIntent,
       token: session.jwt
     })
-
     return data
   }
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
@@ -77,7 +72,6 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       // salva no banco
       // bater na API /orders
       saveOrder()
-
       // redireciona para success
       push('/success')
       return
@@ -93,11 +87,9 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     } else {
       setError(null)
       setLoading(false)
-
       // salvar a compra no banco do Strapi
       // bater na API /orders
       saveOrder(payload.paymentIntent)
-
       // redirectionar para a página de Sucesso
       push('/success')
     }
@@ -132,9 +124,11 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           )}
         </S.Body>
         <S.Footer>
-          <Button as="a" fullWidth minimal>
-            Continue shopping
-          </Button>
+          <Link href="/" passHref>
+            <Button as="a" fullWidth minimal>
+              Continue shopping
+            </Button>
+          </Link>
           <Button
             fullWidth
             icon={loading ? <FormLoading /> : <ShoppingCart />}
