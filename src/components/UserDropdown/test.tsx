@@ -1,7 +1,13 @@
-import { render, screen } from 'utils/test-utils'
+import { render, screen, act } from 'utils/test-utils'
 import userEvent from '@testing-library/user-event'
-
 import UserDropdown from '.'
+
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    query: {}
+  })
+}))
 
 describe('<UserDropdown />', () => {
   it('should render the username', () => {
@@ -12,18 +18,24 @@ describe('<UserDropdown />', () => {
   it('should render the menu', async () => {
     render(<UserDropdown username="Willian" />)
 
-    // Open menu
+    // Abrir o menu
     userEvent.click(screen.getByText(/willian/i))
 
-    // Use 'findByRole' to wait for the menu items to appear
-    const profileLink = await screen.findByRole('link', { name: /my profile/i })
-    const wishlistLink = await screen.findByRole('link', { name: /wishlist/i })
+    await act(async () => {
+      // Use 'findByRole' para esperar que os itens do menu apareçam
+      const profileLink = await screen.findByRole('link', {
+        name: /my profile/i
+      })
+      const wishlistLink = await screen.findByRole('link', {
+        name: /wishlist/i
+      })
 
-    // Assert that the menu items are present
-    expect(profileLink).toBeInTheDocument()
-    expect(wishlistLink).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: /sign out/i })
-    ).toBeInTheDocument()
+      // Assert que os itens do menu estão presentes
+      expect(profileLink).toBeInTheDocument()
+      expect(wishlistLink).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: /sign out/i })
+      ).toBeInTheDocument()
+    })
   })
 })
