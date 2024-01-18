@@ -1,6 +1,5 @@
 import OrdersList, { OrdersListProps } from 'components/OrdersList'
 import Profile from 'templates/Profile'
-
 import protectedRoutes from 'utils/protected-routes'
 import { GetServerSidePropsContext } from 'next'
 import { initializeApollo } from 'utils/apollo'
@@ -27,7 +26,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     query: QUERY_ORDERS,
     variables: {
       identifier: session?.id as string
-    }
+    },
+    fetchPolicy: 'no-cache'
   })
 
   return {
