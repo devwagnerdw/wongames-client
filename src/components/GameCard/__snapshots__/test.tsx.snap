@@ -112,6 +112,8 @@ exports[`<GameCard /> should render correctly 1`] = `
 }
 
 .c1 {
+  min-height: 14rem;
+  position: relative;
   height: 14rem;
   width: 100%;
   background: #f6f7f8;
@@ -218,6 +220,7 @@ exports[`<GameCard /> should render correctly 1`] = `
   >
     <img
       alt="Population Zero"
+      layout="fill"
       src="https://source.unsplash.com/user/willianjusten/300x140"
     />
   </a>
@@ -288,4 +291,4 @@ exports[`<GameCard /> should render correctly 1`] = `
     </div>
   </div>
 </article>
-`
+`;
