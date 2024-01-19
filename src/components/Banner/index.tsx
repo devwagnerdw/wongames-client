@@ -1,8 +1,9 @@
+import Image from 'next/image'
+
 import Ribbon, { RibbonColors, RibbonSizes } from 'components/Ribbon'
 import Button from 'components/Button'
 
 import * as S from './styles'
-
 export type BannerProps = {
   img: string
   title: string
@@ -29,7 +30,10 @@ const Banner = ({
         {ribbon}
       </Ribbon>
     )}
-    <S.Image src={img} role="img" aria-label={title} />
+
+    <S.ImageWrapper>
+      <Image src={img} alt={title} layout="fill" objectFit="cover" />
+    </S.ImageWrapper>
 
     <S.Caption>
       <S.Title>{title}</S.Title>
@@ -40,5 +44,4 @@ const Banner = ({
     </S.Caption>
   </S.Wrapper>
 )
-
 export default Banner
