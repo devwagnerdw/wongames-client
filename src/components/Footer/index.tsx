@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Heading from 'components/Heading'
 import Logo from 'components/Logo'
 import * as S from './styles'
-
+const currentYear = new Date().getFullYear()
 const Footer = () => (
   <S.Wrapper>
     <Logo color="black" />
@@ -16,12 +16,12 @@ const Footer = () => (
         <a href="mailto:sac@wongames.com">sac@wongames.com</a>
       </S.Column>
 
-      <S.Column>
+      <S.Column aria-labelledby="social-media">
         <Heading color="black" lineColor="secondary" lineBottom size="small">
           Follow us
         </Heading>
 
-        <nav aria-labelledby="social media">
+        <nav id="social-media">
           <a
             href="https://www.instagram.com/won-games"
             target="_blank"
@@ -53,12 +53,12 @@ const Footer = () => (
         </nav>
       </S.Column>
 
-      <S.Column>
+      <S.Column aria-labelledby="resources">
         <Heading color="black" lineColor="secondary" lineBottom size="small">
           Links
         </Heading>
 
-        <nav aria-labelledby="footer resources">
+        <nav id="resources">
           <Link href="/">
             <a>Home</a>
           </Link>
@@ -71,7 +71,7 @@ const Footer = () => (
         </nav>
       </S.Column>
 
-      <S.Column aria-labelledby="footer-contact">
+      <S.Column aria-label="contact">
         <Heading color="black" lineColor="secondary" lineBottom size="small">
           Location
         </Heading>
@@ -80,8 +80,7 @@ const Footer = () => (
         <span>Lorem, ipsum dolor.</span>
       </S.Column>
     </S.Content>
-
-    <S.Copyright>Won Games 2020 © All rights reserved.</S.Copyright>
+    <S.Copyright>Won Games {currentYear} © All rights reserved.</S.Copyright>
   </S.Wrapper>
 )
 
