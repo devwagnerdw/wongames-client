@@ -12,6 +12,7 @@
     "test:watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand",
     "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "generate": "yarn plop --plopfile generators/plopfile.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
