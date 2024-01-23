@@ -21,6 +21,10 @@ import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('google', () => cy.visit('https://google.com'))
 
+Cypress.Commands.add('getByDataCy', (selector, ...args) => {
+  return cy.get(`[data-cy="${selector}"]`, ...args)
+})
+
 Cypress.Commands.add('shouldRenderBanner', () => {
     cy.get('.slick-slider').within(() => {
         cy.findByRole('heading', {name: /cyberpunk 2077/i})
@@ -41,18 +45,18 @@ Cypress.Commands.add('shouldRenderBanner', () => {
 })
 
 
-Cypress.Commands.add('shouldRenderShowcase', ({name, hightlight = false}) => {
-    cy.get(`[data-cy="${name}"]`).within(()=>{
-        cy.findByRole('heading',{ name }).should('exist')
-        
-        cy.get(`[data-cy="highlight"]`).should(hightlight ? 'exist' : 'not.exist')
+Cypress.Commands.add('shouldRenderShowcase', ({ name, hightlight = false }) => {
+  cy.getByDataCy(name).within(() => {
+    cy.findByRole('heading', { name }).should('exist')
 
-        if (hightlight) {
-          cy.get(`[data-cy="highlight"]`).within(() => {
-            cy.findByRole('link').should('have.attr', 'href')
-          })
-        }
+    cy.getByDataCy('highlight').should(hightlight ? 'exist' : 'not.exist')
 
-        cy.get(`[data-cy="game-card"]`).should('have.length.gt', -1)
-    })
-}) 
+    if (hightlight) {
+      cy.getByDataCy('highlight').within(() => {
+        cy.findByRole('link').should('have.attr', 'href')
+      })
+    }
+
+    cy.getByDataCy('game-card').should('have.length.gt', -1)
+  })
+})
