@@ -1,3 +1,10 @@
+// ***********************************************
+// This example commands.js shows you how to
+// create various custom commands and overwrite
+// existing commands.
+//
+// For more comprehensive examples of custom
+// commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
@@ -26,22 +33,18 @@ Cypress.Commands.add('getByDataCy', (selector, ...args) => {
 })
 
 Cypress.Commands.add('shouldRenderBanner', () => {
-    cy.get('.slick-slider').within(() => {
-        cy.findByRole('heading', {name: /cyberpunk 2077/i})
-        cy.findByRole('link', { name: /buy now/i })
-  
-        cy.get('.slick-dots > :nth-child(2) > button').click()
-        cy.wait(500)
-  
-        cy.findByRole('heading', { name: /Dome Keeper /i})
-        cy.findByRole('link', { name: /buy now/i })
-  
-        cy.get('.slick-dots > :nth-child(3) > button').click()
-        cy.wait(500)
-  
-        cy.findByRole('heading', {name: /sonzai /i})
-        cy.findByRole('link', { name: /buy now/i })
-      })
+  cy.get('.slick-slider').within(() => {
+    cy.findByRole('heading', { name: /cyberpunk 2077/i })
+    cy.findByRole('link', { name: /buy now/i })
+    cy.get('.slick-dots > :nth-child(2) > button').click()
+    cy.wait(500)
+    cy.findByRole('heading', { name: /horizon zero dawn/i })
+    cy.findByRole('link', { name: /buy now/i })
+    cy.get('.slick-dots > :nth-child(3) > button').click()
+    cy.wait(500)
+    cy.findByRole('heading', { name: /huge promotion!/i })
+    cy.findByRole('link', { name: /browse games/i })
+  })
 })
 
 
@@ -56,7 +59,12 @@ Cypress.Commands.add('shouldRenderShowcase', ({ name, hightlight = false }) => {
         cy.findByRole('link').should('have.attr', 'href')
       })
     }
+    cy.getByDataCy('game-card').should('have.length.gt', 0)
+  })
+})
 
-    cy.getByDataCy('game-card').should('have.length.gt', -1)
+Cypress.Commands.add('getFields', (fields) => {
+  fields.map(({ label }) => {
+    cy.findByText(label).should('exist')
   })
 })
