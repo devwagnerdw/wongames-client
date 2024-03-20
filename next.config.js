@@ -8,7 +8,7 @@ module.exports = withPWA({
     disable: !isProd
   },
   images: {
-    domains: ['localhost', 'res.cloudinary.com','i.stack.imgur.com']
+    domains: ['localhost', 'res.cloudinary.com', 'i.stack.imgur.com']
   },
   future: {
     webpack5: true

@@ -30,7 +30,7 @@ export async function getStaticProps() {
     revalidate: 10,
     props: {
       banners: bannerMapper(banners),
-      newGamesTitle: sections?.newGames?.title,
+      newGamesTitle: sections?.newGames?.title ?? 'Novos Jogos',
       newGames: gamesMapper(newGames),
       mostPopularGamesTitle: sections?.popularGames?.title,
       mostPopularHighlight: highlightMapper(sections?.popularGames?.highlight),
